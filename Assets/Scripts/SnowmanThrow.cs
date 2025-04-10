@@ -8,33 +8,41 @@ public class SnowmanThrow : MonoBehaviour
     public float throwDistance;
     public int throwSpeed;
     private bool justThown = false;
+    private GameObject target;
+    [SerializeField]private Vector3 throwheightOffset = new Vector3(0,0.33f, 0);
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        target = GameObject.Find("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-       GameObject target = GameObject.Find("Player");
-       
-       float distanceToTarget = Vector3.Distance(target.transform.position, transform.position);
 
-        if (distanceToTarget < throwDistance&&justThown==false)
+        if (Time.frameCount % 6 == 0)
         {
-            justThown = true;
-            GameObject tempSnowBall = Instantiate(snowBall,transform.position,transform.rotation);
-            Rigidbody tempRb = tempSnowBall.GetComponent<Rigidbody>();
-            Vector3 targetDirection =  Vector3.Normalize(target.transform.position-transform.position);
-            
-            //Add a small throw angle
-            targetDirection += new Vector3(0, 0.33f, 0);
-            tempRb.AddForce(targetDirection * throwSpeed);
-            Invoke("ThrowOver", 0.1f);
-        }
+            float distanceToTarget = Vector3.Distance(target.transform.position, transform.position);
 
+            if (distanceToTarget < throwDistance && justThown == false)
+            {
+               ThrowSnowball();
+            }
+        }
+    }
+
+    void ThrowSnowball()
+    {
+        justThown = true;
+        GameObject tempSnowBall = Instantiate(snowBall, transform.position, transform.rotation);
+        Rigidbody tempRb = tempSnowBall.GetComponent<Rigidbody>();
+        Vector3 targetDirection = Vector3.Normalize(target.transform.position - transform.position);
+
+        //Add a small throw angle
+        targetDirection += throwheightOffset;
+        tempRb.AddForce(targetDirection * throwSpeed);
+        Invoke("ThrowOver", 0.1f);
     }
 
     void ThrowOver()
