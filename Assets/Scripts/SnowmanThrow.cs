@@ -15,7 +15,14 @@ public class SnowmanThrow : MonoBehaviour
     void Start()
     {
         target = GameObject.Find("Player");
+
+        if (target == null)
+        {
+            Debug.LogError("Target (Player) not found!");
+        }
     }
+
+
 
     // Update is called once per frame
     void Update()

@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameOverUI : MonoBehaviour
 {
+    [SerializeField] private Leaderboard leaderboard;
+    [SerializeField] private float playerTime;
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private Image overlay;
     [SerializeField] private int nextLevelIndex = 1;
@@ -27,6 +30,9 @@ public class GameOverUI : MonoBehaviour
     private void EnableGameOverUI()
     {
         gameOverUI.SetActive(true);
+
+        
+        leaderboard.AddRaceTime(playerTime);
     }
     public void RestartLevel()
     {
