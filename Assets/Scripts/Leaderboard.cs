@@ -35,11 +35,16 @@ public class Leaderboard : MonoBehaviour
     private void LoadTimes()
     {
         bestTimes = new List<float>();
+
         for (int i = 0; i < 5; i++)
         {
-            bestTimes.Add(PlayerPrefs.GetFloat("time" + i, 99999));
+            if (PlayerPrefs.HasKey("time" + i))
+            {
+                bestTimes.Add(PlayerPrefs.GetFloat("time" + i));
+            }
         }
     }
+
 
     private void UpdateUI()
     {

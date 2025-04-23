@@ -30,9 +30,6 @@ public class GameOverUI : MonoBehaviour
     private void EnableGameOverUI()
     {
         gameOverUI.SetActive(true);
-
-        
-        leaderboard.AddRaceTime(playerTime);
     }
     public void RestartLevel()
     {
